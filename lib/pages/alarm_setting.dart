@@ -1,14 +1,51 @@
+import 'package:firedot/main.dart';
 import 'package:flutter/material.dart';
 
-class PeoplePage extends StatefulWidget {
+class AlarmSettingPage extends StatefulWidget {
   @override
-  _PeoplePageState createState() => _PeoplePageState();
+  _AlarmSettingPageState createState() => _AlarmSettingPageState();
 }
 
-class _PeoplePageState extends State<PeoplePage> {
+class _AlarmSettingPageState extends State<AlarmSettingPage> {
+
+  List<Widget> _widgets;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    _widgets = [
+      _cardWidget(context, Icons.person, "Alarm 1", "Phone number"),
+
+      _cardWidget(context, Icons.person, "Alarm 2", "Phone number"),
+
+      _cardWidget(context, Icons.person, "Alarm 3", "Phone number"),
+
+      _cardWidget(context, Icons.person, "Alarm 4", "Phone number"),
+
+      _cardWidget(context, Icons.person, "Alarm 5", "Phone number"),
+
+      _cardWidget(context, Icons.person, "Alarm 6", "Phone number"),
+
+      _cardWidget(context, Icons.person, "Alarm 1", "Phone number"),
+
+      _cardWidget(context, Icons.person, "Alarm 2", "Phone number"),
+
+      _cardWidget(context, Icons.person, "Alarm 3", "Phone number"),
+
+      _cardWidget(context, Icons.person, "Alarm 4", "Phone number"),
+
+      _cardWidget(context, Icons.person, "Alarm 5", "Phone number"),
+
+      _cardWidget(context, Icons.person, "Alarm 6", "Phone number"),];
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var bodyHeight = MediaQuery.of(context).size.height - 201;
+
     return Scaffold(
       body: Container(
         child: Column(
@@ -17,7 +54,7 @@ class _PeoplePageState extends State<PeoplePage> {
               elevation: 10,
               child: Container(
                 height: 100,
-                child: Center(child: Text("User Accounts", style: TextStyle(fontSize: 25),)),
+                child: Center(child: Text("Alarm Setting", style: TextStyle(fontSize: 25),)),
               ),
             ),
 
@@ -25,19 +62,11 @@ class _PeoplePageState extends State<PeoplePage> {
               height: bodyHeight,
               width: MediaQuery.of(context).size.width - 10,
               child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-
-                    SizedBox(height: 50,),
-
-                    _cardWidget(context, Icons.person, "Your name", "Phone number"),
-
-                    _cardWidget(context, Icons.person, "Your name", "Phone number"),
-
-                    _cardWidget(context, Icons.person, "Your name", "Phone number"),
-
-                  ],
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: _widgets
+                  ),
                 ),
               ),
             )
@@ -51,10 +80,26 @@ class _PeoplePageState extends State<PeoplePage> {
         child: Icon(Icons.add, color: Colors.white,),
         backgroundColor: Colors.orange,
       ),
+      bottomNavigationBar: InkWell(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MyHomePage(currentIndex: 2)));
+        },
+        child: Container(
+          height: 50,
+          width: MediaQuery.of(context).size.width + 50,
+          color: Colors.orange,
+          child: Center(
+            child: ListTile(
+              leading: Icon(Icons.arrow_back),
+              title: Text("BACK"),
+            ),
+          ),
+        ),
+      ),
     );
   }
 
-  _cardWidget(BuildContext context ,IconData iconImage, String name, String phoneNumber) {
+  Widget _cardWidget(BuildContext context ,IconData iconImage, String name, String phoneNumber) {
     return Card(
       elevation: 5,
       child: Container(
@@ -66,13 +111,13 @@ class _PeoplePageState extends State<PeoplePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Container(
-                width: 30,
-                height: 30,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    border: Border.all(width: 1)
-                ),
-                child: Icon(iconImage)
+                  width: 30,
+                  height: 30,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      border: Border.all(width: 1)
+                  ),
+                  child: Icon(iconImage)
               ),
 
               Container(
@@ -87,16 +132,6 @@ class _PeoplePageState extends State<PeoplePage> {
                 ),
               ),
 
-
-//            Container(
-//              width: 30,
-//              color: Colors.red,
-//              child: ListTile(
-//                title: Text(name),
-//                subtitle: Text(phoneNumber),
-//              ),
-//            ),
-
               Container(
                 height: 30,
                 child: Row(
@@ -110,10 +145,13 @@ class _PeoplePageState extends State<PeoplePage> {
                     ),
 
                     InkWell(
-                        onTap: () {
+                      onTap: () {
 
-                        },
-                        child: Icon(Icons.delete, color: Colors.red,),
+                        setState(() {
+
+                        });
+                      },
+                      child: Icon(Icons.delete, color: Colors.red,),
                     )
                   ],
                 ),

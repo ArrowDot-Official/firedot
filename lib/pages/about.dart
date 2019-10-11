@@ -34,8 +34,8 @@ class AboutPage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: FlatButton(
-        onPressed: () {
+      bottomNavigationBar: InkWell(
+        onTap: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context)=>MyHomePage(currentIndex: 2)));
         },
         child: Container(

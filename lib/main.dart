@@ -1,9 +1,9 @@
-import 'package:firedot/pages/about.dart';
 import 'package:firedot/pages/home.dart';
 import 'package:firedot/pages/people.dart';
 import 'package:firedot/pages/setting.dart';
 import 'package:firedot/pages/welcome.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,8 +32,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  int _currentIndex = 0;
-  List<Widget> _children = [PeoplePage(), HomePage(),SettingPage()];
+  int _currentIndex = 1;
+  List<Widget> _children = [ HomePage(),PeoplePage(),SettingPage()];
 
   @override
   void initState() {
@@ -56,12 +56,12 @@ class _MyHomePageState extends State<MyHomePage> {
           items: [
             BottomNavigationBarItem(
                 icon: Icon(Icons.home),
-                title: Text("People")
+                title: Text("Home")
             ),
 
             BottomNavigationBarItem(
-                icon: Icon(Icons.info),
-                title: Text("Home")
+                icon: Icon(Icons.people),
+                title: Text("People")
             ),
 
             BottomNavigationBarItem(

@@ -1,4 +1,5 @@
 import 'package:firedot/pages/about.dart';
+import 'package:firedot/pages/alarm_setting.dart';
 import 'package:firedot/pages/topup.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +30,7 @@ class SettingPage extends StatelessWidget {
                     SizedBox(height: 50,),
 
                     _cardWidget(context, () {
-
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => AlarmSettingPage()));
                     }, Icons.settings, "Alarm Setting"),
 
                     _cardWidget(context, () {
@@ -51,8 +52,8 @@ class SettingPage extends StatelessWidget {
   }
 
   _cardWidget(BuildContext context, Function onPressed, IconData iconImage, String title) {
-    return FlatButton(
-      onPressed: onPressed,
+    return InkWell(
+      onTap: onPressed,
       child: Card(
         elevation: 5,
         child: Container(

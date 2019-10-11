@@ -16,7 +16,7 @@ class _WelcomePageState extends State<WelcomePage> {
   }
 
   void navigationPage() {
-    Navigator.of(context).push(new MaterialPageRoute(builder: (context) => MyHomePage()));
+    Navigator.of(context).push(new MaterialPageRoute(builder: (context) => MyHomePage(currentIndex: 0,)));
   }
 
   @override
