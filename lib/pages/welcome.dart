@@ -49,7 +49,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   Container(
                     height: 300,
                     width: MediaQuery.of(context).size.width - 100,
-                    child: Image.asset("images/logo.jpg"),
+                    child: Image.asset("images/logo_firedot.png"),
                   ),
                   Text("Powered By ArrowDot")
                 ],

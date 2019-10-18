@@ -54,6 +54,16 @@ flutter:
   assets:
    - images/logo.jpg
    - images/noti.png
+   - images/logo_firedot.png
+   - images/color-logo-03.png
+   - images/color-logo-02.png
+   - images/color-logo-01.png
+   - images/logo-alert.gif
+   - images/logo-stable.png
+   - images/battery.png
+   - images/battery_life.png
+   - images/air.png
+   - images/device.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

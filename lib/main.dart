@@ -1,3 +1,6 @@
+import 'package:firedot/pages/about.dart';
+import 'package:firedot/pages/alarm_setting.dart';
+import 'package:firedot/pages/device_controller.dart';
 import 'package:firedot/pages/home.dart';
 import 'package:firedot/pages/people.dart';
 import 'package:firedot/pages/setting.dart';
@@ -33,7 +36,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   int _currentIndex = 1;
-  List<Widget> _children = [ HomePage(),PeoplePage(),SettingPage()];
+  List<Widget> _children = [ AlarmSettingPage(),DeviceControllerPage(),AboutPage()];
 
   @override
   void initState() {
@@ -54,19 +57,20 @@ class _MyHomePageState extends State<MyHomePage> {
           selectedItemColor: Colors.grey[500],
           unselectedItemColor: Colors.white,
           items: [
+
             BottomNavigationBarItem(
                 icon: Icon(Icons.home),
                 title: Text("Home")
             ),
 
             BottomNavigationBarItem(
-                icon: Icon(Icons.people),
-                title: Text("People")
+                icon: Icon(Icons.add_box),
+                title: Text("Device")
             ),
 
             BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                title: Text("Setting")
+                icon: Icon(Icons.info),
+                title: Text("About")
             )
           ],
         ),
