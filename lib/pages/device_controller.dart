@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gps/gps.dart';
+import 'package:barcode_scan/barcode_scan.dart';
+import 'package:flutter/services.dart';
+import 'package:toast/toast.dart';
 
 class DeviceControllerPage extends StatefulWidget {
   @override
@@ -12,10 +16,58 @@ class _DeviceControllerPageState extends State<DeviceControllerPage> {
 
   TextEditingController _phone1Controller = TextEditingController();
   TextEditingController _phone2Controller = TextEditingController();
-  TextEditingController _phone3Controller = TextEditingController();
-  TextEditingController _communeController = TextEditingController();
   TextEditingController _cityController = TextEditingController();
-  TextEditingController _countryController = TextEditingController();
+
+  String lat = "";
+  String long = "";
+
+  _getLoc() async {
+    var latlng = await Gps.currentGps();
+    print(latlng.lat);
+    print(latlng.lng);
+    setState(() {
+      lat = latlng.lat;
+      long = latlng.lng;
+    });
+  }
+
+  String result = "Device id here";
+
+  Future _scanQR() async {
+    try {
+      String qrResult = await BarcodeScanner.scan();
+      setState(() {
+        result = qrResult;
+      });
+    } on PlatformException catch (ex) {
+      if (ex.code == BarcodeScanner.CameraAccessDenied) {
+        setState(() {
+          Toast.show("Camera permission was denied", context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+        });
+      } else {
+        setState(() {
+          Toast.show("Unknown Error $ex", context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+        });
+      }
+    } on FormatException {
+      setState(() {
+        Toast.show("You pressed the back button before scanning anything", context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      });
+    } catch (ex) {
+      setState(() {
+        Toast.show("Unknown Error $ex", context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      });
+    }
+    _idController.text = result;
+    print(result);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getLoc();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +103,25 @@ class _DeviceControllerPageState extends State<DeviceControllerPage> {
 
                           // TODO: Device Info
 
+                          InkWell(
+                            onTap: () {
+                              _scanQR();
+                            },
+                            child: Container(
+                              width: MediaQuery.of(context).size.width / 2,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.orange
+                              ),
+                              child: Center(
+                                child: Text("SCAN", style: TextStyle(color: Colors.white, fontSize: 20),),
+                              ),
+                            ),
+                          ),
+
+                          SizedBox(height: 20,),
+
                           Align(
                             alignment: Alignment.topLeft,
                             child: Container(
@@ -60,10 +131,11 @@ class _DeviceControllerPageState extends State<DeviceControllerPage> {
 
                           TextFormField(
                             controller: _idController,
+                            enabled: false,
                             decoration: InputDecoration(
-                              hintText: "(eg 123456)",
+                              hintText: "$result",
                               helperText: "(Device ID : )",
-                              prefixIcon: Icon(Icons.vpn_key),
+                              prefixIcon: Icon(Icons.code),
                             ),
                             validator: (value) {
                               if (value == "") {
@@ -76,8 +148,8 @@ class _DeviceControllerPageState extends State<DeviceControllerPage> {
                           TextFormField(
                             controller: _nameController,
                             decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.title),
-                                helperText: "Device Name : ",
+                              prefixIcon: Icon(Icons.title),
+                              helperText: "Device Name ",
                             ),
                             validator: (value) {
                               if (value == "") {
@@ -88,10 +160,9 @@ class _DeviceControllerPageState extends State<DeviceControllerPage> {
                           ),
 
                           TextFormField(
-                            controller: _nameController,
                             enabled: false,
                             decoration: InputDecoration(
-                              hintText: "11234.12, 12.12453",
+                              hintText: "lat: $lat, long: $long",
                               prefixIcon: InkWell(
                                 child: Icon(Icons.my_location),
                                 onTap: () {
@@ -136,7 +207,7 @@ class _DeviceControllerPageState extends State<DeviceControllerPage> {
                           TextFormField(
                             controller: _phone2Controller,
                             decoration: InputDecoration(
-                              helperText: "Secondary number :",
+                              helperText: "Secondary number",
                               prefixIcon: Icon(Icons.phone),
                               hintText: "(eg 011323270)"
                             ),
@@ -151,7 +222,7 @@ class _DeviceControllerPageState extends State<DeviceControllerPage> {
                           TextFormField(
                             controller: _cityController,
                             decoration: InputDecoration(
-                              helperText: "Address : ",
+                              helperText: "Address",
                             ),
                             validator: (value) {
                               if (value == "") {

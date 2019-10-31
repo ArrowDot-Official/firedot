@@ -17,10 +17,15 @@ class _AlarmSettingPageState extends State<AlarmSettingPage> {
     _widgets = [
       _cardWidget(context, "Alarm 1", "Phone number"),
 
-//      _cardWidget(context, Icons.person, "Alarm 2", "Phone number"),
-//
-//      _cardWidget(context, Icons.person, "Alarm 3", "Phone number"),
-//
+      _cardWidget(context, "Alarm 1", "Phone number"),
+
+      _cardWidget(context, "Alarm 1", "Phone number"),
+      
+      _cardWidget(context, "Alarm 1", "Phone number"),
+
+      _cardWidget(context, "Alarm 1", "Phone number"),
+
+      _cardWidget(context, "Alarm 1", "Phone number"),
 //      _cardWidget(context, Icons.person, "Alarm 4", "Phone number"),
 //
 //      _cardWidget(context, Icons.person, "Alarm 5", "Phone number"),
@@ -45,7 +50,7 @@ class _AlarmSettingPageState extends State<AlarmSettingPage> {
                 child: Center(child: Text("Overview", style: TextStyle(fontSize: 25),)),
               ),
             ),
-            
+
             Container(
               width: 250,
               height: 250,
@@ -139,6 +144,45 @@ class _AlarmSettingPageState extends State<AlarmSettingPage> {
                       child: Image.asset("images/color-logo-01.png"),
                       onTap: () {
                         print("RESET");
+                        showDialog(
+                          context: context,
+                          builder: (_) => AlertDialog(
+                            title: Text("RESET"),
+                            actions: <Widget>[
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  InkWell(
+                                    child: Container(
+                                      height: 50,
+                                      width: 100,
+                                      decoration: BoxDecoration(
+                                        color: Colors.orange,
+                                        borderRadius: BorderRadius.circular(10)
+                                      ),
+                                      child: Center(
+                                        child: Text("Cal"),
+                                      ),
+                                    ),
+                                  ),
+                                  InkWell(
+                                    child: Container(
+                                      width: 100,
+                                      height: 50,
+                                      decoration: BoxDecoration(
+                                          color: Colors.orange,
+                                          borderRadius: BorderRadius.circular(10)
+                                      ),
+                                      child: Center(
+                                        child: Text("Reset"),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              )
+                            ],
+                          )
+                        );
                       },
                     )
                 ),
